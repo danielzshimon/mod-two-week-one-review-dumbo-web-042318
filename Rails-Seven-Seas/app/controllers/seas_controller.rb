@@ -4,18 +4,25 @@ class SeasController < ApplicationController
 
   end
   def index
-
+    @seas = Sea.all
   end
 
   def new
     @sea = Sea.new
   end
   
+  def create 
+    @sea = Sea.create(sea_params)
+
+    redirect_to '/seas'
+  end
+
   def show
-    
+    @sea = find
   end
   
   def edit
+    @sea = find
     
   end
   
@@ -28,4 +35,7 @@ class SeasController < ApplicationController
     params.require(:sea).permit(:name, :temperature, :bio, :mood, :image_url, :favorite_color, :scariest_creature, :has_mermaids)
   end
 
+  def find
+    Sea.find(params[:id])
+  end
 end
